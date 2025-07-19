@@ -1,0 +1,8 @@
+[radicale]
+enabled = true
+port = 5232
+filter = radicale
+logpath = /var/log/radicale/access.log  # Укажите свой путь к логам
+maxretry = 3  # Количество попыток перед блокировкой
+bantime = 1h  # Время блокировки
+findtime = 10m  # Период для подсчета попыток

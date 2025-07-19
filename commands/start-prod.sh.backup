@@ -1,0 +1,42 @@
+#!/bin/bash
+
+
+CONTAINER_NAME=${CONTAINER_NAME:-"radicale"}
+
+
+# Проверка существования контейнера
+container_exists() {
+    docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"
+}
+
+# Проверка запущен ли контейнер
+container_running() {
+    docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"
+}
+
+
+
+# Проверяем, существует ли контейнер
+if container_exists; then
+    if container_running; then
+        echo "Контейнер уже запущен. Подключаемся..."
+    else
+        echo "Запускаем существующий контейнер..."
+        docker start $CONTAINER_NAME >/dev/null
+    fi
+    docker exec -it $CONTAINER_NAME /bin/bash
+
+else
+    # Создаем новый контейнер
+    echo "Создаем новый контейнер..."
+    docker run -d --name $CONTAINER_NAME \
+        -p 5232:5232 \
+        -v ./config:/etc/radicale \
+        -v ./data:/var/lib/radicale \
+        -v ./logs:/var/log/radicale \
+        --hostname radicale-srv \
+        radicale
+
+    # sleep 2
+    # docker logs $CONTAINER_NAME
+fi

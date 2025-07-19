@@ -1,0 +1,11 @@
+services:
+  radicale:
+    image: tomsquest/docker-radicale:latest
+    restart: unless-stopped
+    ports:
+      - "5232:5232"
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    environment:
+      - TZ=Europe/Moscow
