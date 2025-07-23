@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TARGET="./backups/radicale_backup_up.tar.gz"
+TARGET="$1"
 TMPDIR="/tmp/radicale/backups/load_data/"
 
 if ! mkdir -p "$TMPDIR/config" "$TMPDIR/data"; then
