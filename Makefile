@@ -1,4 +1,4 @@
-.PHONY: status, start, build, stop, clear, clear-full, restart, rebuild, backup, term, help
+.PHONY: status, start, build, stop, clear, clear-full, restart, rebuild, backup, term, help, restore
 
 
 CONTAINER_NAME := radicale-radicale-1
@@ -50,7 +50,7 @@ backup:
 
 restore:
 	@echo "Загрузка из архива..."
-	@./commands/restore.sh
+	@./commands/restore.sh $(ARCHIVE)
 
 help:
 	@./commands/help.sh
